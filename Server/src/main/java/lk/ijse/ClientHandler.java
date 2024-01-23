@@ -6,46 +6,40 @@ import java.net.Socket;
 public class ClientHandler implements Runnable{
     private Socket clientSocket;
     private BufferedReader reader;
+    private DataOutputStream dataOutputStream;
+    private DataInputStream dataInputStream;
     private PrintWriter writer;
-    private String clientName; // Added field to store client's username
+    private String clientName;
 
-    public ClientHandler(Socket clientSocket) {
+    public ClientHandler(Socket clientSocket,String clientName) {
         this.clientSocket = clientSocket;
-
-        try {
-            // Initialize input and output streams for this client
-            InputStream inputStream = clientSocket.getInputStream();
-            OutputStream outputStream = clientSocket.getOutputStream();
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            writer = new PrintWriter(outputStream, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.clientName = clientName;
     }
 
     @Override
     public void run() {
         try {
-            // Receive the username from the client during the login process
-            clientName = reader.readLine();
-            System.out.println("Client " + clientName + " connected.");
+            dataInputStream = new DataInputStream(clientSocket.getInputStream());
+            dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
 
-            // Listen for incoming messages from the client
-            String message;
-            while ((message = reader.readLine()) != null) {
-
-                // Broadcast the message to all clients
-                Server GroupChatServer = new Server();
-                GroupChatServer.broadcastMessage(clientName + ": " + message, this);
+            while (!clientSocket.isClosed()) {
+                String message = dataInputStream.readUTF();
+                Server.broadcastMessage(message, this);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                // Close resources when the client disconnects
-                reader.close();
-                writer.close();
-                clientSocket.close();
+                if (dataOutputStream != null) {
+                    dataOutputStream.close();
+                }
+                if (dataInputStream != null) {
+                    dataInputStream.close();
+                }
+                if (clientSocket != null && !clientSocket.isClosed()) {
+                    clientSocket.close();
+                }
                 System.out.println("Client " + clientName + " disconnected.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,12 +47,17 @@ public class ClientHandler implements Runnable{
         }
     }
 
+
     // Send a message to this client
     public void sendMessage(String message) {
-        writer.println(message);
-    }
+        try{
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-    // Get the client's username
+    }
     public String getClientName() {
         return clientName;
     }
