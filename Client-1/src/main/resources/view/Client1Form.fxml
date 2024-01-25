@@ -1,12 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
+<AnchorPane prefHeight="850.0" prefWidth="500.0" style="-fx-background-color: #454FD6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
    <children>
-      <TextArea fx:id="txtArea" layoutX="27.0" layoutY="14.0" prefHeight="236.0" prefWidth="536.0" />
-      <TextField fx:id="txtMsg" layoutX="28.0" layoutY="273.0" onAction="#sendMsgOnAction" prefHeight="37.0" prefWidth="341.0" />
+      <AnchorPane layoutY="130.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <children>
+            <TextField layoutX="80.0" layoutY="645.0" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;">
+               <font>
+                  <Font name="SansSerif Bold" size="18.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="364.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/emoji.png" />
+               </image>
+            </ImageView>
+            <ScrollPane layoutX="18.0" layoutY="36.0" prefHeight="593.0" prefWidth="465.0" style="-fx-background-color: transparent;" />
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/attach.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button layoutX="438.0" layoutY="11.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="387.0" layoutY="11.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/minimize.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="11.0" layoutY="12.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="45.0" layoutY="73.0" prefHeight="17.0" prefWidth="213.0" text="Charaka V Mihiranga" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
