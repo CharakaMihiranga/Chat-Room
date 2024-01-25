@@ -7,31 +7,35 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="850.0" prefWidth="500.0" style="-fx-background-color: #454FD6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
    <children>
       <AnchorPane layoutY="130.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <TextField layoutX="80.0" layoutY="645.0" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;">
+            <TextField fx:id="txtMessage" layoutX="80.0" layoutY="645.0" onAction="#txtMessageOnAction" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;">
                <font>
                   <Font name="SansSerif Bold" size="18.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="364.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnEmoji" fitHeight="28.0" fitWidth="28.0" layoutX="364.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/emoji.png" />
                </image>
             </ImageView>
-            <ScrollPane layoutX="18.0" layoutY="36.0" prefHeight="593.0" prefWidth="465.0" style="-fx-background-color: transparent;" />
-            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+            <ScrollPane fx:id="scrollPane" layoutX="18.0" layoutY="36.0" prefHeight="593.0" prefWidth="465.0" style="-fx-background-color: transparent;">
+               <content>
+                  <VBox fx:id="vBox" prefHeight="582.0" prefWidth="461.0" />
+               </content></ScrollPane>
+            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/attach.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Button layoutX="438.0" layoutY="11.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnClose" layoutX="438.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,7 +44,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="387.0" layoutY="11.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnMinimize" layoutX="387.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,7 +53,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="11.0" layoutY="12.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnBack" layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +62,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="45.0" layoutY="73.0" prefHeight="17.0" prefWidth="213.0" text="Charaka V Mihiranga" textFill="WHITE">
+      <Label fx:id="lblUsername" layoutX="45.0" layoutY="73.0" prefHeight="17.0" prefWidth="213.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

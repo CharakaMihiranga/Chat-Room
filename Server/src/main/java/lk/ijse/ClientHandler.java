@@ -5,10 +5,8 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable{
     private Socket clientSocket;
-    private BufferedReader reader;
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
-    private PrintWriter writer;
     private String clientName;
 
     public ClientHandler(Socket clientSocket,String clientName) {
