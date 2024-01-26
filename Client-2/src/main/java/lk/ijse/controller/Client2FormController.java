@@ -57,7 +57,7 @@ public class Client2FormController {
     private Socket socket;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
-    private static String message;
+
 
     public void initialize() {
         new Thread(() -> {
