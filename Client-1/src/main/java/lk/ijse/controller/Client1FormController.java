@@ -135,7 +135,7 @@ public class Client1FormController {
 
                }
            }
-
+           txtMessage.clear();
            dataOutputStream.writeUTF(message);
            dataOutputStream.flush();
        } catch (Exception e) {

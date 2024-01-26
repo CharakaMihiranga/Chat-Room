@@ -40,7 +40,7 @@ public class Server {
     public static void broadcastMessage(String message, ClientHandler sender) {
         for (ClientHandler client : clients) {
             if (client != sender) {
-                client.sendMessage(sender.getClientName() + ": " + message);
+                client.sendMessage(sender.getClientName()+"-"+message);
             }
         }
     }
