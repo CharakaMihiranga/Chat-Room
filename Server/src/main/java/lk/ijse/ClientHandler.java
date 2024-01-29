@@ -1,5 +1,5 @@
 package lk.ijse;
-
+import lombok.Getter;
 import java.io.*;
 import java.net.Socket;
 
@@ -7,6 +7,7 @@ public class ClientHandler implements Runnable{
     private Socket clientSocket;
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
+    @Getter
     private String clientName;
 
     public ClientHandler(Socket clientSocket,String clientName) {
@@ -55,8 +56,5 @@ public class ClientHandler implements Runnable{
             throw new RuntimeException(e);
         }
 
-    }
-    public String getClientName() {
-        return clientName;
     }
 }

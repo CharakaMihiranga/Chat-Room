@@ -1,7 +1,6 @@
 package lk.ijse.controller;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
