@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,7 +23,6 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
@@ -111,9 +109,9 @@ public class Client1FormController {
 
     private void setReceived(String received) {
         try{
+            System.out.println("Received code :"+received);
             Image image = convertStringToImage(received);
             imgView.setImage(image);
-            System.out.println("Image Received");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -121,58 +119,70 @@ public class Client1FormController {
 
     private Image convertStringToImage(String received) {
 
-        byte[] imageBytes = Base64.getDecoder().decode(received);
+        String [] imgMessage = splitImage(received);
+
+        String sender = imgMessage[0];
+        String img = imgMessage[1];
+        byte[] imageBytes = Base64.getDecoder().decode(img);
         ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
 
         return new Image(bis);
     }
 
+    private String[] splitImage(String received) {
+
+        // Split the text into two parts based on the hyphen "-"
+        String[] parts = received.split("-");
+
+        return parts;
+    }
+
 
     void sendMessage(String message) {
-       try{
-           if (!message.isEmpty()){
-               if(!message.matches(".*\\.(png|jpe?g|gif|mp3|wav|ogg|flac|mp4|mov|avi|wmv)$")){
+        try{
+            if (!message.isEmpty()){
+                if(!message.matches(".*\\.(png|jpe?g|gif|mp3|wav|ogg|flac|mp4|mov|avi|wmv)$")){
 
-                   vBox.setSpacing(10);
+                    vBox.setSpacing(10);
 
-                   HBox hBox = new HBox();
-                   hBox.setAlignment(Pos.CENTER_RIGHT);
-                   hBox.setPadding(new Insets(5, 10, 5, 10));
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setPadding(new Insets(5, 10, 5, 10));
 
-                   Text text = new Text(message);
-                   text.setStyle("-fx-font-size: 16; -fx-font-family: 'Sans Serif';");
+                    Text text = new Text(message);
+                    text.setStyle("-fx-font-size: 16; -fx-font-family: 'Sans Serif';");
 
-                   LocalDateTime currentTime = LocalDateTime.now();
-                   String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a")); // 'a' for AM/PM indicator
-                   Text timeText = new Text("  "+formattedTime);
-                   timeText.setStyle("-fx-font-size: 11");
-                   timeText.setFill(Color.GRAY);
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a")); // 'a' for AM/PM indicator
+                    Text timeText = new Text("  "+formattedTime);
+                    timeText.setStyle("-fx-font-size: 11");
+                    timeText.setFill(Color.GRAY);
 
-                   TextFlow messageTextFlow = new TextFlow(text);
+                    TextFlow messageTextFlow = new TextFlow(text);
 
-                   Region spacer = new Region();
-                   HBox.setHgrow(spacer, Priority.ALWAYS);
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, Priority.ALWAYS);
 
-                   messageTextFlow.setBackground(new Background(new BackgroundFill(Color.web("#D9D9D9"), new CornerRadii(10), null)));
-                   messageTextFlow.setPadding(new Insets(10, 10, 10, 10));
+                    messageTextFlow.setBackground(new Background(new BackgroundFill(Color.web("#D9D9D9"), new CornerRadii(10), null)));
+                    messageTextFlow.setPadding(new Insets(10, 10, 10, 10));
 
-                   messageTextFlow.getChildren().addAll(spacer, timeText);
-                   text.setFill(Color.BLACK);
+                    messageTextFlow.getChildren().addAll(spacer, timeText);
+                    text.setFill(Color.BLACK);
 
-                   HBox innerHBox = new HBox(messageTextFlow);
-                   innerHBox.setAlignment(Pos.BOTTOM_RIGHT);
+                    HBox innerHBox = new HBox(messageTextFlow);
+                    innerHBox.setAlignment(Pos.BOTTOM_RIGHT);
 
-                   hBox.getChildren().addAll(innerHBox);
-                   vBox.getChildren().add(hBox);
+                    hBox.getChildren().addAll(innerHBox);
+                    vBox.getChildren().add(hBox);
 
-               }
-           }
-           txtMessage.clear();
-           dataOutputStream.writeUTF(message);
-           dataOutputStream.flush();
-       } catch (Exception e) {
-           throw new RuntimeException(e);
-       }
+                }
+            }
+            txtMessage.clear();
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -242,7 +252,7 @@ public class Client1FormController {
                 System.out.println("select file first!");
             }
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
 
 
@@ -269,25 +279,39 @@ public class Client1FormController {
 
     private String convertImageToString(Image image) {
 
-
-
-        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
-
-        // Buffer the image to a byte array
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+            // Resize the image
+            double maxWidth = 600; // Maximum width for resizing
+            double maxHeight = 400; // Maximum height for resizing
+            double width = image.getWidth();
+            double height = image.getHeight();
+
+            if (width > maxWidth || height > maxHeight) {
+                double scaleFactor = Math.min(maxWidth / width, maxHeight / height);
+                width *= scaleFactor;
+                height *= scaleFactor;
+            }
+
+            // Create a resized BufferedImage
+            BufferedImage resizedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = resizedImage.createGraphics();
+            g.drawImage(SwingFXUtils.fromFXImage(image, null), 0, 0, (int) width, (int) height, null);
+            g.dispose();
+
+            // Compress the image
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(resizedImage, "jpg", outputStream);
+
+            // Convert the resized and compressed image to a Base64-encoded string
+            byte[] imageBytes = outputStream.toByteArray();
+            return Base64.getEncoder().encodeToString(imageBytes);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
-        // Convert byte array to Base64 string
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        String imgAsString = Base64.getEncoder().encodeToString(imageBytes);
-        System.out.println("Img as a String after the converting :"+imgAsString);
-
-        return imgAsString;
     }
+
 
     @FXML
     private void btnCloseOnAction(ActionEvent actionEvent) throws IOException {

@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,7 +23,6 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
@@ -65,7 +63,7 @@ public class Client2FormController {
     private ImageView imgView;
 
 
-    private String username = "Mihiranga";
+    private String username = "charaka";
     private Socket socket;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
@@ -100,22 +98,20 @@ public class Client2FormController {
 
 
     private void receiveMessage(String message) {
+        String received = message;
 
-        System.out.println(message);
-        if (message.length() > 50){
-            setReceived(message);
+        if (received.length() > 200){
+            setReceived(received);
         }else {
             setReceivedText(message);
         }
     }
 
     private void setReceived(String received) {
-        System.out.println("Image got!");
         try{
-
+            System.out.println("Received code :"+received);
             Image image = convertStringToImage(received);
             imgView.setImage(image);
-            System.out.println("Image Received");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -123,10 +119,22 @@ public class Client2FormController {
 
     private Image convertStringToImage(String received) {
 
-        byte[] imageBytes = Base64.getDecoder().decode(received);
+        String [] imgMessage = splitImage(received);
+
+        String sender = imgMessage[0];
+        String img = imgMessage[1];
+        byte[] imageBytes = Base64.getDecoder().decode(img);
         ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
 
         return new Image(bis);
+    }
+
+    private String[] splitImage(String received) {
+
+        // Split the text into two parts based on the hyphen "-"
+        String[] parts = received.split("-");
+
+        return parts;
     }
 
 
@@ -257,7 +265,7 @@ public class Client2FormController {
             Image image = new Image(fileToSend.getPath());
 
             String imageAsString = convertImageToString(image);
-            System.out.println(imageAsString);
+            System.out.println("Image :"+imageAsString);
 
             dataOutputStream.writeUTF(imageAsString);
             dataOutputStream.flush();
@@ -271,23 +279,39 @@ public class Client2FormController {
 
     private String convertImageToString(Image image) {
 
-
-
-        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
-
-        // Buffer the image to a byte array
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+            // Resize the image
+            double maxWidth = 600; // Maximum width for resizing
+            double maxHeight = 400; // Maximum height for resizing
+            double width = image.getWidth();
+            double height = image.getHeight();
+
+            if (width > maxWidth || height > maxHeight) {
+                double scaleFactor = Math.min(maxWidth / width, maxHeight / height);
+                width *= scaleFactor;
+                height *= scaleFactor;
+            }
+
+            // Create a resized BufferedImage
+            BufferedImage resizedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = resizedImage.createGraphics();
+            g.drawImage(SwingFXUtils.fromFXImage(image, null), 0, 0, (int) width, (int) height, null);
+            g.dispose();
+
+            // Compress the image
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(resizedImage, "jpg", outputStream);
+
+            // Convert the resized and compressed image to a Base64-encoded string
+            byte[] imageBytes = outputStream.toByteArray();
+            return Base64.getEncoder().encodeToString(imageBytes);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
-        // Convert byte array to Base64 string
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        return Base64.getEncoder().encodeToString(imageBytes);
-
     }
+
 
     @FXML
     private void btnCloseOnAction(ActionEvent actionEvent) throws IOException {
