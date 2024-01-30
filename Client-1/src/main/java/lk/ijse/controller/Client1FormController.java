@@ -187,40 +187,56 @@ public class Client1FormController {
 
 
     void setReceivedText(String message){
-        if (!message.matches(".*\\.(png|jpe?g|gif|mp3|wav|ogg|flac|mp4|mov|avi|wmv)$")){
+        if (message != null){
+
+            String [] msgDetail = splitReceivedMsg(message);
+
+            String sender = msgDetail[0];
+            String receivedMessage = msgDetail[1];
+
             vBox.setSpacing(10);
 
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_LEFT);
             hBox.setPadding(new Insets(5, 10, 5, 10));
 
-            Text text = new Text(message);
-            text.setStyle("-fx-font-size: 16; -fx-font-family: 'Sans Serif';");
+            VBox messageBox = new VBox();
+            messageBox.setAlignment(Pos.TOP_LEFT);
+
+            Text senderText = new Text(sender);
+            senderText.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-font-family: 'Sans Serif';");
+
+            Text messageText = new Text(receivedMessage);
+            messageText.setStyle("-fx-font-size: 16; -fx-font-family: 'Sans Serif';");
 
             LocalDateTime currentTime = LocalDateTime.now();
-            String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a")); // 'a' for AM/PM indicator
-            Text timeText = new Text("  "+formattedTime);
+            String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            Text timeText = new Text("  " + formattedTime);
             timeText.setStyle("-fx-font-size: 11");
             timeText.setFill(Color.GRAY);
 
-            TextFlow messageTextFlow = new TextFlow(text);
+            TextFlow senderFlow = new TextFlow(senderText);
+            TextFlow messageFlow = new TextFlow(messageText, timeText);
 
-            Region spacer = new Region();
-            HBox.setHgrow(spacer, Priority.ALWAYS);
+            messageBox.getChildren().addAll(senderFlow, messageFlow);
 
-            messageTextFlow.setBackground(new Background(new BackgroundFill(Color.web("#CBD2FF"), new CornerRadii(10), null)));
-            messageTextFlow.setPadding(new Insets(10, 10, 10, 10));
+            messageBox.setBackground(new Background(new BackgroundFill(Color.web("#CBD2FF"), new CornerRadii(10), null)));
+            messageBox.setPadding(new Insets(10, 10, 10, 10));
 
-            messageTextFlow.getChildren().addAll(spacer, timeText);
-            text.setFill(Color.BLACK);
-
-            HBox innerHBox = new HBox(messageTextFlow);
-            innerHBox.setAlignment(Pos.BOTTOM_RIGHT);
-
-            hBox.getChildren().addAll(innerHBox);
+            hBox.getChildren().addAll(messageBox);
             vBox.getChildren().add(hBox);
+
+
         }
     }
+
+    private String[] splitReceivedMsg(String message) {
+
+        String[] parts = message.split("-");
+
+        return parts;
+    }
+
     public void txtMessageOnAction(ActionEvent actionEvent) {
 
         String msg = txtMessage.getText();
@@ -280,29 +296,25 @@ public class Client1FormController {
     private String convertImageToString(Image image) {
 
         try {
-            // Resize the image
-            double maxWidth = 600; // Maximum width for resizing
-            double maxHeight = 400; // Maximum height for resizing
+
+            double maxWidth = 600;
+            double maxHeight = 400;
             double width = image.getWidth();
             double height = image.getHeight();
 
-            if (width > maxWidth || height > maxHeight) {
-                double scaleFactor = Math.min(maxWidth / width, maxHeight / height);
-                width *= scaleFactor;
-                height *= scaleFactor;
-            }
+            double scaleFactor = (width > maxWidth || height > maxHeight) ? Math.min(maxWidth / width, maxHeight / height) : 1.0;
+            width *= scaleFactor;
+            height *= scaleFactor;
 
-            // Create a resized BufferedImage
             BufferedImage resizedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g = resizedImage.createGraphics();
             g.drawImage(SwingFXUtils.fromFXImage(image, null), 0, 0, (int) width, (int) height, null);
             g.dispose();
 
-            // Compress the image
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageIO.write(resizedImage, "jpg", outputStream);
 
-            // Convert the resized and compressed image to a Base64-encoded string
+
             byte[] imageBytes = outputStream.toByteArray();
             return Base64.getEncoder().encodeToString(imageBytes);
 
