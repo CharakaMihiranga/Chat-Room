@@ -28,7 +28,7 @@
                <content>
                   <VBox fx:id="vBox" prefHeight="582.0" prefWidth="461.0" />
                </content></ScrollPane>
-            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" onMouseClicked="#btnAttachOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/attach.png" />
                </image>
@@ -67,5 +67,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+      <ImageView fx:id="imgView" fitHeight="98.0" fitWidth="143.0" layoutX="95.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

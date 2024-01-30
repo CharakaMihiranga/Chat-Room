@@ -26,7 +26,7 @@ public class ClientHandler implements Runnable{
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Client " + clientName + " disconnected.");
         } finally {
             try {
                 if (dataOutputStream != null) {
@@ -38,9 +38,9 @@ public class ClientHandler implements Runnable{
                 if (clientSocket != null && !clientSocket.isClosed()) {
                     clientSocket.close();
                 }
-                System.out.println("Client " + clientName + " disconnected.");
+
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
     }
