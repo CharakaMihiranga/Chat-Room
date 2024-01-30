@@ -1,5 +1,6 @@
 package lk.ijse.controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -71,6 +74,9 @@ public class Client1FormController {
     private File fileToSend;
 
     public void initialize() {
+
+
+
         new Thread(() -> {
             try {
                 socket = new Socket("localhost", 5000);
@@ -97,6 +103,7 @@ public class Client1FormController {
     }
 
 
+
     private void receiveMessage(String message) {
         String received = message;
 
@@ -111,7 +118,10 @@ public class Client1FormController {
         try{
             System.out.println("Received code :"+received);
             Image image = convertStringToImage(received);
+
+
             imgView.setImage(image);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -141,7 +151,7 @@ public class Client1FormController {
     void sendMessage(String message) {
         try{
             if (!message.isEmpty()){
-                if(!message.matches(".*\\.(png|jpe?g|gif|mp3|wav|ogg|flac|mp4|mov|avi|wmv)$")){
+                if(message != null){
 
                     vBox.setSpacing(10);
 
@@ -280,17 +290,23 @@ public class Client1FormController {
 
             Image image = new Image(fileToSend.getPath());
 
+
+
             String imageAsString = convertImageToString(image);
             System.out.println("Image :"+imageAsString);
 
             dataOutputStream.writeUTF(imageAsString);
             dataOutputStream.flush();
-            imgView.setImage(image);
+            setSentImage(image);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void setSentImage(Image image) {
+        imgView.setImage(image);
     }
 
     private String convertImageToString(Image image) {
@@ -342,5 +358,37 @@ public class Client1FormController {
     @FXML
     private void btnBackOnAction(ActionEvent actionEvent) {
         System.out.println("Back");
+    }
+
+    public void playMouseEnterAnimation(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) mouseEvent.getSource();
+
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1.2);
+            scaleT.setToY(1.2);
+            scaleT.play();
+
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.web("#454FD6")); // Set color to #454FD6
+            glow.setWidth(20);
+            glow.setHeight(20);
+            glow.setRadius(20);
+            icon.setEffect(glow);
+        }
+    }
+
+    public void playMouseExitAnimation(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) mouseEvent.getSource();
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
+
+            icon.setEffect(null);
+        }
     }
 }

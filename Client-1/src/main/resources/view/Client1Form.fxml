@@ -14,12 +14,12 @@
    <children>
       <AnchorPane layoutY="130.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <TextField fx:id="txtMessage" layoutX="80.0" layoutY="645.0" onAction="#txtMessageOnAction" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;">
+            <TextField fx:id="txtMessage" layoutX="77.0" layoutY="645.0" onAction="#txtMessageOnAction" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;" stylesheets="@../styles/textField.css">
                <font>
                   <Font name="SansSerif Bold" size="18.0" />
                </font>
             </TextField>
-            <ImageView fx:id="btnEmoji" fitHeight="28.0" fitWidth="28.0" layoutX="364.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnEmoji" fitHeight="25.0" fitWidth="25.0" layoutX="395.0" layoutY="658.0" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/emoji.png" />
                </image>
@@ -28,7 +28,7 @@
                <content>
                   <VBox fx:id="vBox" prefHeight="582.0" prefWidth="461.0" />
                </content></ScrollPane>
-            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="413.0" layoutY="656.0" onMouseClicked="#btnAttachOnAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="431.0" layoutY="656.0" onMouseClicked="#btnAttachOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/attach.png" />
                </image>

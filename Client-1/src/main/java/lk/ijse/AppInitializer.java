@@ -22,7 +22,7 @@ public class AppInitializer extends Application {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.DECORATED);
+        stage.initStyle(StageStyle.TRANSPARENT);
 
         AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
         AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
