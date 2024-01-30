@@ -12,9 +12,9 @@
 
 <AnchorPane prefHeight="850.0" prefWidth="500.0" style="-fx-background-color: #454FD6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
    <children>
-      <AnchorPane layoutY="130.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <AnchorPane layoutY="124.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <TextField fx:id="txtMessage" layoutX="77.0" layoutY="645.0" onAction="#txtMessageOnAction" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;" stylesheets="@../styles/textField.css">
+            <TextField fx:id="txtMessage" layoutX="77.0" layoutY="645.0" onAction="#txtMessageOnAction" prefHeight="50.0" prefWidth="398.0" promptText="   Message" style="-fx-background-color: D9D9D9; -fx-background-radius: 25;" stylesheets="@../styles/textField.css" AnchorPane.bottomAnchor="25.0">
                <font>
                   <Font name="SansSerif Bold" size="18.0" />
                </font>
@@ -33,6 +33,15 @@
                   <Image url="@../assets/attach.png" />
                </image>
             </ImageView>
+            <Button layoutX="15.0" layoutY="649.0" mnemonicParsing="false" onAction="#btnTakePhotoOnAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #454FD6; -fx-background-radius: 100;" AnchorPane.bottomAnchor="28.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/camera.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <Button fx:id="btnClose" layoutX="438.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
@@ -44,20 +53,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnMinimize" layoutX="387.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/minimize.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <Button fx:id="btnBack" layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnMinimize" layoutX="387.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/minimize.png" />
                </image>
             </ImageView>
          </graphic>
