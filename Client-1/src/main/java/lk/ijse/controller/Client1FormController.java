@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -74,6 +75,7 @@ public class Client1FormController {
     private DataOutputStream dataOutputStream;
     private static String message;
     private File fileToSend;
+    private String imgSender;
 
     public void initialize() {
 
@@ -119,10 +121,44 @@ public class Client1FormController {
     private void setReceived(String received) {
         try{
             System.out.println("Received code :"+received);
+
             Image image = convertStringToImage(received);
+            String sender = imgSender;
+
+            vBox.setSpacing(10);
+
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPadding(new Insets(5, 10, 5, 10));
+
+            VBox messageBox = new VBox();
+            messageBox.setAlignment(Pos.TOP_LEFT);
+            messageBox.setSpacing(5); // Adjust spacing as needed
+
+            Text senderText = new Text(sender);
+            senderText.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-font-family: 'Sans Serif';");
+
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(300);
+            imageView.setPreserveRatio(true);
 
 
-            imgView.setImage(image);
+            LocalDateTime currentTime = LocalDateTime.now();
+            String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            Text timeText = new Text(formattedTime);
+            timeText.setStyle("-fx-font-size: 11");
+            timeText.setFill(Color.GRAY);
+
+            messageBox.getChildren().addAll(senderText, imageView, timeText);
+
+            VBox.setMargin(timeText, new Insets(0, 0, 0, 10));
+
+            messageBox.setBackground(new Background(new BackgroundFill(Color.web("#CBD2FF"), new CornerRadii(10), null)));
+            messageBox.setPadding(new Insets(10, 10, 10, 10));
+
+            hBox.getChildren().addAll(messageBox);
+            vBox.getChildren().add(hBox);
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -133,13 +169,14 @@ public class Client1FormController {
 
         String [] imgMessage = splitImage(received);
 
-        String sender = imgMessage[0];
+        imgSender = imgMessage[0];
         String img = imgMessage[1];
         byte[] imageBytes = Base64.getDecoder().decode(img);
         ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
 
         return new Image(bis);
     }
+
 
     private String[] splitImage(String received) {
 
@@ -308,7 +345,41 @@ public class Client1FormController {
     }
 
     private void setSentImage(Image image) {
-        imgView.setImage(image);
+
+        vBox.setSpacing(10);
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 10, 5, 10));
+
+        VBox messageBox = new VBox();
+        messageBox.setAlignment(Pos.TOP_RIGHT);
+        messageBox.setSpacing(5); // Adjust spacing as needed
+
+
+// Create an ImageView with the loaded image
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(300); // Adjust the width as needed
+        imageView.setPreserveRatio(true); // Maintain aspect ratio
+
+// Text for displaying time
+        LocalDateTime currentTime = LocalDateTime.now();
+        String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        Text timeText = new Text(formattedTime);
+        timeText.setStyle("-fx-font-size: 11");
+        timeText.setFill(Color.GRAY);
+
+// Add sender text and image to the messageBox
+        messageBox.getChildren().addAll(imageView, timeText);
+
+// Set the alignment of timeText to center left
+        VBox.setMargin(timeText, new Insets(0, 0, 0, 10));
+
+        messageBox.setBackground(new Background(new BackgroundFill(Color.web("#CBD2FF"), new CornerRadii(10), null)));
+        messageBox.setPadding(new Insets(10, 10, 10, 10));
+
+        hBox.getChildren().addAll(messageBox);
+        vBox.getChildren().add(hBox);
     }
 
     private String convertImageToString(Image image) {
