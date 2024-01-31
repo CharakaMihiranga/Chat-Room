@@ -1,0 +1,7 @@
+#btnLogin:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #66e566, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}

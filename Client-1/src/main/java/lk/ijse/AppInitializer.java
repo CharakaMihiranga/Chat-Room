@@ -18,7 +18,7 @@ public class AppInitializer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Client1Form.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);

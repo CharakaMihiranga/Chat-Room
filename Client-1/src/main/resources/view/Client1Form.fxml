@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="850.0" prefWidth="500.0" style="-fx-background-color: #454FD6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
+<AnchorPane fx:id="anchorpane" prefHeight="850.0" prefWidth="500.0" style="-fx-background-color: #454FD6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.Client1FormController">
    <children>
       <AnchorPane layoutY="124.0" prefHeight="720.0" prefWidth="500.0" style="-fx-background-color: F4F4F4; -fx-background-radius: 40px 40px 0px 0px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
@@ -19,7 +19,7 @@
                   <Font name="SansSerif Bold" size="18.0" />
                </font>
             </TextField>
-            <ImageView fx:id="btnEmoji" fitHeight="25.0" fitWidth="25.0" layoutX="395.0" layoutY="658.0" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnEmoji" fitHeight="25.0" fitWidth="25.0" layoutX="395.0" layoutY="658.0" onMouseClicked="#btnEmojiOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/emoji.png" />
                </image>

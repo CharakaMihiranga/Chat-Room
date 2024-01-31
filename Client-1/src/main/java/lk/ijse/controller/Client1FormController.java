@@ -1,8 +1,8 @@
 package lk.ijse.controller;
 
-import com.vdurmont.emoji.Emoji;
 import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -22,12 +22,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lombok.Setter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -42,6 +41,8 @@ import java.util.Base64;
 public class Client1FormController {
 
 
+    @FXML
+    private AnchorPane anchorpane;
     @FXML
     private ImageView btnAttach;
 
@@ -71,8 +72,8 @@ public class Client1FormController {
     @FXML
     private ImageView imgView;
 
-
-    private String username = "charaka";
+    @Setter
+    private String username;
     private Socket socket;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
@@ -82,7 +83,10 @@ public class Client1FormController {
 
     public void initialize() {
 
-
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), anchorpane);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
 
         new Thread(() -> {
             try {
@@ -108,7 +112,6 @@ public class Client1FormController {
             }
         }).start();
     }
-
 
 
     private void receiveMessage(String message) {
@@ -476,4 +479,51 @@ public class Client1FormController {
        //write codes to open the camera
 
     }
+
+//    @FXML
+//    private void btnEmojiOnAction(MouseEvent mouseEvent) {
+//
+//
+//
+//
+//    }
+
+    @FXML
+    private void btnEmojiOnAction(MouseEvent mouseEvent) {
+
+
+        AnchorPane emojiPane = createEmojiPane();
+
+        Scene scene = new Scene(emojiPane, 400, 200);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Emoji Selector");
+        stage.show();
+    }
+
+    private AnchorPane createEmojiPane() {
+        AnchorPane emojiPane = new AnchorPane();
+        emojiPane.setPadding(new Insets(10));
+
+        Button emoji1 = createEmojiButton("😀", 10, 10 );
+        Button emoji2 = createEmojiButton("😂", 70, 10 );
+        Button emoji3 = createEmojiButton("😍", 130, 10);
+
+        emojiPane.getChildren().addAll(emoji1, emoji2, emoji3);
+        return emojiPane;
+    }
+
+    private Button createEmojiButton(String emoji, double layoutX, double layoutY) {
+        Button button = new Button(emoji);
+        button.setOnAction(event -> {
+            txtMessage.appendText(emoji);
+            ((Stage) button.getScene().getWindow()).close(); // Close the emoji pane after selecting emoji
+        });
+        button.setLayoutX(layoutX);
+        button.setLayoutY(layoutY);
+        return button;
+    }
+
+
+
 }
