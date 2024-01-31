@@ -1,5 +1,8 @@
 package lk.ijse.controller;
 
+import com.vdurmont.emoji.Emoji;
+import com.vdurmont.emoji.EmojiManager;
+import com.vdurmont.emoji.EmojiParser;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -243,6 +246,8 @@ public class Client1FormController {
             String sender = msgDetail[0];
             String receivedMessage = msgDetail[1];
 
+            String textWithUnicodeEmoji = EmojiParser.parseToUnicode(receivedMessage);
+
             vBox.setSpacing(10);
 
             HBox hBox = new HBox();
@@ -255,7 +260,7 @@ public class Client1FormController {
             Text senderText = new Text(sender);
             senderText.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-font-family: 'Sans Serif';");
 
-            Text messageText = new Text(receivedMessage);
+            Text messageText = new Text(textWithUnicodeEmoji);
             messageText.setStyle("-fx-font-size: 16; -fx-font-family: 'Sans Serif';");
 
             LocalDateTime currentTime = LocalDateTime.now();
@@ -275,11 +280,12 @@ public class Client1FormController {
             hBox.getChildren().addAll(messageBox);
             vBox.getChildren().add(hBox);
 
-
         }
     }
 
     private String[] splitReceivedMsg(String message) {
+
+        System.out.println(EmojiManager.getForAlias("smile").getUnicode());
 
         String[] parts = message.split("-");
 
