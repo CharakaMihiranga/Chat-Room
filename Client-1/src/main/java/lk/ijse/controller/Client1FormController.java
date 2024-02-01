@@ -1,15 +1,19 @@
 package lk.ijse.controller;
 
+import com.github.sarxos.webcam.Webcam;
 import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +30,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.emoji.EmojiPicker;
 import lombok.Setter;
 
 import javax.imageio.ImageIO;
@@ -36,13 +41,29 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Client1FormController {
 
 
+   @FXML
+   private AnchorPane capturedImagePane;
+
+   @FXML
+   private ImageView capturedImage;
+
+   @FXML
+   private Button btnNoOnAction;
+
+   @FXML
+   private Button btnYesOnAction;
+    @FXML
+    private AnchorPane emojiBar;
+
     @FXML
     private AnchorPane anchorpane;
+
     @FXML
     private ImageView btnAttach;
 
@@ -80,6 +101,7 @@ public class Client1FormController {
     private static String message;
     private File fileToSend;
     private String imgSender;
+    private File capturedImageFile;
 
     public void initialize() {
 
@@ -87,6 +109,8 @@ public class Client1FormController {
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
+
+        capturedImagePane.setVisible(false);
 
         new Thread(() -> {
             try {
@@ -438,8 +462,45 @@ public class Client1FormController {
 
 
     @FXML
-    private void btnBackOnAction(ActionEvent actionEvent) {
-        System.out.println("Back");
+    private void btnBackOnAction(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"));
+        Parent root = loader.load();
+        if (root != null) {
+            Scene subScene = new Scene(root);
+            Stage stage = (Stage) this.anchorpane.getScene().getWindow();
+            stage.setScene(subScene);
+            stage.centerOnScreen();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(350), subScene.getRoot());
+            tt.setFromX(-subScene.getWidth());
+            tt.setToX(0);
+            tt.play();
+
+            AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+            AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+
+            root.setOnMousePressed(event -> {
+                xOffset.set(event.getSceneX());
+                yOffset.set(event.getSceneY());
+            });
+
+            root.setOnMouseDragged(event -> {
+                // Check if the mouse movement starts from the top part of the pane
+                if (event.getY() < root.getLayoutY() + 20) { // You can adjust the value 20 according to your preference
+                    double newX = event.getScreenX() - xOffset.get();
+                    double newY = event.getScreenY() - yOffset.get();
+                    stage.setX(newX);
+                    stage.setY(newY);
+                }
+            });
+
+
+            stage.setScene(subScene);
+            stage.setResizable(false);
+            stage.show();
+
+        }
     }
 
     public void playMouseEnterAnimation(MouseEvent mouseEvent) {
@@ -476,54 +537,95 @@ public class Client1FormController {
 
     @FXML
     private void btnTakePhotoOnAction(ActionEvent actionEvent) {
-       //write codes to open the camera
+        // Open the camera and capture the photo
+        Webcam webcam = Webcam.getDefault();
+        if (webcam != null) {
+            // Open the webcam
+            webcam.open();
 
+            // Capture the photo
+            java.awt.Image awtImage = webcam.getImage();
+
+            // Convert the AWT image to JavaFX Image
+            Image fxImage = SwingFXUtils.toFXImage((BufferedImage) awtImage, null);
+
+            // Close the webcam
+            webcam.close();
+
+            // Specify the file path where you want to save the image
+            String filePath = "C:\\Users\\chara\\Desktop\\phot\\";
+
+            // Save the captured photo to the specified file path
+            saveImageToFile(fxImage, filePath);
+
+            capturedImage.setImage(fxImage);
+            capturedImagePane.setVisible(true);
+
+        }
     }
 
-//    @FXML
-//    private void btnEmojiOnAction(MouseEvent mouseEvent) {
-//
-//
-//
-//
-//    }
+    private void saveImageToFile(Image image, String filePath) {
+        // Convert the JavaFX Image to a BufferedImage
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+
+        // Write the BufferedImage to a file
+        try {
+
+            File file = new File(filePath);
+            ImageIO.write(bufferedImage, "png", file);
+
+            if (file != null){
+
+               setCapturedImageFile(file);
+
+            }
+            System.out.println("Image saved to: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error saving image: " + e.getMessage());
+        }
+    }
+
+    private void setCapturedImageFile(File file){
+        capturedImageFile = file;
+    }
+    private File returnCapturedImage() {
+        return capturedImageFile;
+    }
 
     @FXML
     private void btnEmojiOnAction(MouseEvent mouseEvent) {
 
+        EmojiPicker emojiPicker = new EmojiPicker();
 
-        AnchorPane emojiPane = createEmojiPane();
+        VBox vBox = new VBox(emojiPicker);
+        vBox.setPrefSize(465, 236);
+        vBox.setLayoutX(400);
+        vBox.setLayoutY(175);
 
-        Scene scene = new Scene(emojiPane, 400, 200);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Emoji Selector");
-        stage.show();
-    }
+        emojiBar.getChildren().add(vBox);
 
-    private AnchorPane createEmojiPane() {
-        AnchorPane emojiPane = new AnchorPane();
-        emojiPane.setPadding(new Insets(10));
-
-        Button emoji1 = createEmojiButton("😀", 10, 10 );
-        Button emoji2 = createEmojiButton("😂", 70, 10 );
-        Button emoji3 = createEmojiButton("😍", 130, 10);
-
-        emojiPane.getChildren().addAll(emoji1, emoji2, emoji3);
-        return emojiPane;
-    }
-
-    private Button createEmojiButton(String emoji, double layoutX, double layoutY) {
-        Button button = new Button(emoji);
-        button.setOnAction(event -> {
-            txtMessage.appendText(emoji);
-            ((Stage) button.getScene().getWindow()).close(); // Close the emoji pane after selecting emoji
+        btnEmoji.setOnMouseClicked(event -> {
+            emojiPicker.setVisible(!emojiPicker.isVisible());
         });
-        button.setLayoutX(layoutX);
-        button.setLayoutY(layoutY);
-        return button;
+
+        emojiPicker.getEmojiListView().setOnMouseClicked(event -> {
+            String selectedEmoji = emojiPicker.getEmojiListView().getSelectionModel().getSelectedItem();
+            if (selectedEmoji != null) {
+                txtMessage.appendText(selectedEmoji);
+            }
+            emojiPicker.setVisible(false);
+        });
     }
 
+    @FXML
+    private void btnYesOnAction(ActionEvent actionEvent) {
+        File file = returnCapturedImage();
+        sendImage(file);
+        capturedImagePane.setVisible(false);
+    }
 
-
+    @FXML
+    private void btnNoOnAction(ActionEvent actionEvent) {
+        capturedImagePane.setVisible(false);
+    }
 }
