@@ -47,7 +47,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Client1FormController {
 
 
-   @FXML
+
+    @FXML
    private AnchorPane capturedImagePane;
 
    @FXML
@@ -64,8 +65,6 @@ public class Client1FormController {
     @FXML
     private AnchorPane anchorpane;
 
-    @FXML
-    private ImageView btnAttach;
 
     @FXML
     private Button btnBack;
@@ -73,8 +72,6 @@ public class Client1FormController {
     @FXML
     private Button btnClose;
 
-    @FXML
-    private ImageView btnEmoji;
 
     @FXML
     private Button btnMinimize;
@@ -93,6 +90,8 @@ public class Client1FormController {
     @FXML
     private ImageView imgView;
 
+    @FXML
+    private Button btnEmoji;
     @Setter
     private String username;
     private Socket socket;
@@ -329,7 +328,7 @@ public class Client1FormController {
 
 
     @FXML
-    void btnAttachOnAction(MouseEvent mouseEvent) {
+    void btnAttachOnAction(ActionEvent actionEvent) {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select File to Send");
@@ -503,37 +502,6 @@ public class Client1FormController {
         }
     }
 
-    public void playMouseEnterAnimation(MouseEvent mouseEvent) {
-        if (mouseEvent.getSource() instanceof ImageView) {
-            ImageView icon = (ImageView) mouseEvent.getSource();
-
-
-            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
-            scaleT.setToX(1.2);
-            scaleT.setToY(1.2);
-            scaleT.play();
-
-            DropShadow glow = new DropShadow();
-            glow.setColor(Color.web("#454FD6")); // Set color to #454FD6
-            glow.setWidth(20);
-            glow.setHeight(20);
-            glow.setRadius(20);
-            icon.setEffect(glow);
-        }
-    }
-
-    public void playMouseExitAnimation(MouseEvent mouseEvent) {
-        if (mouseEvent.getSource() instanceof ImageView) {
-            ImageView icon = (ImageView) mouseEvent.getSource();
-
-            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
-            scaleT.setToX(1);
-            scaleT.setToY(1);
-            scaleT.play();
-
-            icon.setEffect(null);
-        }
-    }
 
     @FXML
     private void btnTakePhotoOnAction(ActionEvent actionEvent) {
@@ -593,7 +561,7 @@ public class Client1FormController {
     }
 
     @FXML
-    private void btnEmojiOnAction(MouseEvent mouseEvent) {
+    private void btnEmojiOnAction(ActionEvent actionEvent) {
 
         EmojiPicker emojiPicker = new EmojiPicker();
 
@@ -604,7 +572,7 @@ public class Client1FormController {
 
         emojiBar.getChildren().add(vBox);
 
-        btnEmoji.setOnMouseClicked(event -> {
+        btnEmoji.setOnAction(event -> {
             emojiPicker.setVisible(!emojiPicker.isVisible());
         });
 

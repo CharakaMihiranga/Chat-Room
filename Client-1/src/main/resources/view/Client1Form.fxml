@@ -19,21 +19,11 @@
                   <Font name="SansSerif Bold" size="18.0" />
                </font>
             </TextField>
-            <ImageView fx:id="btnEmoji" fitHeight="25.0" fitWidth="25.0" layoutX="395.0" layoutY="658.0" onMouseClicked="#btnEmojiOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/emoji.png" />
-               </image>
-            </ImageView>
             <ScrollPane fx:id="scrollPane" layoutX="18.0" layoutY="36.0" prefHeight="593.0" prefWidth="465.0" style="-fx-background-color: transparent;">
                <content>
                   <VBox fx:id="vBox" prefHeight="582.0" prefWidth="461.0" />
                </content></ScrollPane>
-            <ImageView fx:id="btnAttach" fitHeight="28.0" fitWidth="28.0" layoutX="431.0" layoutY="656.0" onMouseClicked="#btnAttachOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/attach.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="15.0" layoutY="649.0" mnemonicParsing="false" onAction="#btnTakePhotoOnAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #454FD6; -fx-background-radius: 100;" AnchorPane.bottomAnchor="28.0">
+            <Button fx:id="btnCamera" layoutX="15.0" layoutY="649.0" mnemonicParsing="false" onAction="#btnTakePhotoOnAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #454FD6; -fx-background-radius: 100;" stylesheets="@../styles/button.css" AnchorPane.bottomAnchor="28.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,9 +32,27 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="btnAttach" layoutX="425.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnAttachOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #454FD6; -fx-background-radius: 20;" stylesheets="@../styles/button.css">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/galley.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnEmoji" layoutX="376.0" layoutY="650.0" mnemonicParsing="false" onAction="#btnEmojiOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #454FD6; -fx-background-radius: 20;" stylesheets="@../styles/button.css">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/emoji.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="btnClose" layoutX="438.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnClose" layoutX="438.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" stylesheets="@../styles/button.css">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,7 +61,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnBack" layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnBack" layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" stylesheets="@../styles/button.css">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -62,7 +70,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnMinimize" layoutX="387.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnMinimize" layoutX="387.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" stylesheets="@../styles/button.css">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -81,12 +89,12 @@
       <AnchorPane fx:id="capturedImagePane" layoutX="-1.0" layoutY="60.0" prefHeight="708.0" prefWidth="500.0" style="-fx-background-color: CBD2FF; -fx-background-radius: 30px 30px 0px 0px;">
          <children>
             <ImageView fx:id="capturedImage" fitHeight="537.0" fitWidth="472.0" layoutX="13.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="291.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnNoOnAction" prefHeight="43.0" prefWidth="109.0" style="-fx-background-color: red; -fx-background-radius: 30;" text="No" textFill="WHITE">
+            <Button fx:id="btnNo" layoutX="291.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnNoOnAction" prefHeight="43.0" prefWidth="109.0" style="-fx-background-color: red; -fx-background-radius: 30;" stylesheets="@../styles/button.css" text="No" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="85.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnYesOnAction" prefHeight="43.0" prefWidth="109.0" style="-fx-background-color: green; -fx-background-radius: 30;" text="Yes" textFill="WHITE">
+            <Button fx:id="btnYes" layoutX="85.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnYesOnAction" prefHeight="43.0" prefWidth="109.0" style="-fx-background-color: green; -fx-background-radius: 30;" stylesheets="@../styles/button.css" text="Yes" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="20.0" />
                </font>

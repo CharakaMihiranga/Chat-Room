@@ -31,7 +31,9 @@ public class LoginFormController {
 
     @FXML
     private void btnCloseOnAction(MouseEvent mouseEvent) {
+
         System.exit(0);
+
     }
 
     @FXML

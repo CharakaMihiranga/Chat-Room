@@ -2,6 +2,70 @@
     -fx-cursor: hand;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(three-pass-box, #66e566, 10, 0.7, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, #454fd6, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnClose:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #dc3545, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnBack:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #007bff, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnMinimize:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #ffc107, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnYes:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #28a745, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnNo:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #e53935, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnCamera:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #454fd6, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnAttach:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #454fd6, 10, 0.7, 0, 0);
+    -fx-transition-duration: 0.2s;
+}
+
+#btnEmoji:hover {
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, #454fd6, 10, 0.7, 0, 0);
     -fx-transition-duration: 0.2s;
 }

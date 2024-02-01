@@ -17,7 +17,7 @@
       </ImageView>
       <Button layoutX="438.0" layoutY="11.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fx:id="btnCloseOnAction" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#btnCloseOnAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnClose" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#btnCloseOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/close.png" />
                </image>
@@ -54,7 +54,7 @@
             <Font name="SansSerif Bold" size="20.0" />
          </font>
       </TextField>
-      <Button fx:id="btnLogin" layoutX="42.0" layoutY="722.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="51.0" prefWidth="421.0" style="-fx-background-color: FFFF; -fx-background-radius: 10;" text="Join now" textFill="#454fd6">
+      <Button fx:id="btnLogin" layoutX="42.0" layoutY="722.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="51.0" prefWidth="421.0" style="-fx-background-color: FFFF; -fx-background-radius: 10;" stylesheets="@../styles/button.css" text="Join now" textFill="#454fd6">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
