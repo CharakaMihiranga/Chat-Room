@@ -40,9 +40,9 @@ public class LoginFormController {
         String username = txtUsername.getText();
 
         if (!username.isEmpty()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Client1Form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Client2Form.fxml"));
             Parent root = loader.load();
-            Client1FormController controller = loader.getController();
+            Client2FormController controller = loader.getController();
             controller.setUsername(username);
 
             if (root != null) {

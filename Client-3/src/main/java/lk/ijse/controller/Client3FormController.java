@@ -4,7 +4,6 @@ import com.github.sarxos.webcam.Webcam;
 import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,10 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -44,7 +41,7 @@ import java.util.Base64;
 import java.util.concurrent.atomic.AtomicReference;
 
 
-public class Client2FormController {
+public class Client3FormController {
 
 
 

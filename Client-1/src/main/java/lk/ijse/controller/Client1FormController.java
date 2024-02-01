@@ -521,7 +521,7 @@ public class Client1FormController {
             webcam.close();
 
             // Specify the file path where you want to save the image
-            String filePath = "C:\\Users\\chara\\Desktop\\phot\\";
+            String filePath = "C:\\Users\\chara\\Desktop\\photos\\";
 
             // Save the captured photo to the specified file path
             saveImageToFile(fxImage, filePath);
