@@ -107,6 +107,7 @@ public class Client3FormController {
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
+        lblUsername.setText(username);
         capturedImagePane.setVisible(false);
 
         new Thread(() -> {
@@ -115,6 +116,7 @@ public class Client3FormController {
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataInputStream = new DataInputStream(socket.getInputStream());
 
+                lblUsername.setText(username);
                 dataOutputStream.writeUTF(username);
                 dataOutputStream.flush();
 

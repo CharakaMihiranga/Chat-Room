@@ -115,6 +115,7 @@ public class Client2FormController {
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataInputStream = new DataInputStream(socket.getInputStream());
 
+                lblUsername.setText(username);
                 dataOutputStream.writeUTF(username);
                 dataOutputStream.flush();
 

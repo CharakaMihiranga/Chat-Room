@@ -79,14 +79,18 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="lblUsername" layoutX="45.0" layoutY="73.0" prefHeight="17.0" prefWidth="213.0" textFill="WHITE">
+      <AnchorPane fx:id="emojiBar" layoutX="19.0" prefHeight="236.0" prefWidth="465.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="79.0" />
+      <ImageView fitHeight="50.0" fitWidth="48.0" layoutX="221.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/user.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblUsername" layoutX="142.0" layoutY="85.0" prefHeight="17.0" prefWidth="213.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgView" fitHeight="103.0" fitWidth="121.0" layoutX="95.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane fx:id="emojiBar" layoutX="19.0" prefHeight="236.0" prefWidth="465.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="79.0" />
-      <AnchorPane fx:id="capturedImagePane" layoutX="-1.0" layoutY="60.0" prefHeight="708.0" prefWidth="500.0" style="-fx-background-color: CBD2FF; -fx-background-radius: 30px 30px 0px 0px;">
+      <AnchorPane fx:id="capturedImagePane" prefHeight="708.0" prefWidth="500.0" style="-fx-background-color: CBD2FF; -fx-background-radius: 30px 30px 0px 0px;" AnchorPane.bottomAnchor="82.0">
          <children>
             <ImageView fx:id="capturedImage" fitHeight="537.0" fitWidth="472.0" layoutX="13.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="btnNo" layoutX="291.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnNoOnAction" prefHeight="43.0" prefWidth="109.0" style="-fx-background-color: red; -fx-background-radius: 30;" stylesheets="@../styles/button.css" text="No" textFill="WHITE">
