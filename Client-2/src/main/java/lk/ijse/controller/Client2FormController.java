@@ -4,7 +4,6 @@ import com.github.sarxos.webcam.Webcam;
 import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -15,14 +14,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -131,11 +129,10 @@ public class Client2FormController {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Unable to connect with the server! (" + e.getMessage() + ")").showAndWait());
             }
         }).start();
     }
-
 
     private void receiveMessage(String message) {
         String received = message;

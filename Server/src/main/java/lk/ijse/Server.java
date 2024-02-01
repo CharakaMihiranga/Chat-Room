@@ -1,5 +1,8 @@
 package lk.ijse;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -33,7 +36,7 @@ public class Server {
                 new Thread(clientHandler).start();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unable to connect with the client! (" + e.getMessage() + ")").showAndWait();
         }
     }
 

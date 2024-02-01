@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -131,7 +132,7 @@ public class Client1FormController {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Unable to connect with the server! (" + e.getMessage() + ")").showAndWait());
             }
         }).start();
     }
