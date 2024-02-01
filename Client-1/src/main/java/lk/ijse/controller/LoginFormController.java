@@ -49,7 +49,6 @@ public class LoginFormController {
                 Scene subScene = new Scene(root);
                 Stage stage = (Stage) this.anchorpane.getScene().getWindow();
                 stage.setScene(subScene);
-                stage.centerOnScreen();
 
                 TranslateTransition tt = new TranslateTransition(Duration.millis(350), subScene.getRoot());
                 tt.setFromX(-subScene.getWidth());
