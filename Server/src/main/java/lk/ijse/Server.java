@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public class Server {
-    private static final int PORT = 5000;
+    private static final int PORT = 8000;
     private static final List<ClientHandler> clients = new ArrayList<>();
 
     public static void main(String[] args) {

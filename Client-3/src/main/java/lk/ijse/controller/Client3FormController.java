@@ -112,7 +112,7 @@ public class Client3FormController {
 
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 5000);
+                socket = new Socket("localhost", 8000);
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataInputStream = new DataInputStream(socket.getInputStream());
 
