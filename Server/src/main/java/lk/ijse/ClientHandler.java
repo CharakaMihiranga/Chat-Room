@@ -46,7 +46,7 @@ public class ClientHandler implements Runnable{
     }
 
 
-    // Send a message to this client
+    // Send a message to client
     public void sendMessage(String message) {
         try{
             dataOutputStream.writeUTF(message);
