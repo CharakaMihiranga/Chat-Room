@@ -64,8 +64,8 @@ public class LoginFormController {
                 });
 
                 root.setOnMouseDragged(event -> {
-                    // Check if the mouse movement starts from the top part of the pane
-                    if (event.getY() < root.getLayoutY() + 20) { // You can adjust the value 20 according to your preference
+
+                    if (event.getY() < root.getLayoutY() + 20) {
                         double newX = event.getScreenX() - xOffset.get();
                         double newY = event.getScreenY() - yOffset.get();
                         stage.setX(newX);
