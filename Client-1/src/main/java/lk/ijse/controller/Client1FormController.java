@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
@@ -388,25 +389,25 @@ public class Client1FormController {
 
         VBox messageBox = new VBox();
         messageBox.setAlignment(Pos.TOP_RIGHT);
-        messageBox.setSpacing(5); // Adjust spacing as needed
+        messageBox.setSpacing(5);
 
 
-// Create an ImageView with the loaded image
+
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(300); // Adjust the width as needed
-        imageView.setPreserveRatio(true); // Maintain aspect ratio
+        imageView.setFitWidth(300);
+        imageView.setPreserveRatio(true);
 
-// Text for displaying time
+
         LocalDateTime currentTime = LocalDateTime.now();
         String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         Text timeText = new Text(formattedTime);
         timeText.setStyle("-fx-font-size: 11");
         timeText.setFill(Color.GRAY);
 
-// Add sender text and image to the messageBox
+
         messageBox.getChildren().addAll(imageView, timeText);
 
-// Set the alignment of timeText to center left
+
         VBox.setMargin(timeText, new Insets(0, 0, 0, 10));
 
         messageBox.setBackground(new Background(new BackgroundFill(Color.web("#CBD2FF"), new CornerRadii(10), null)));
