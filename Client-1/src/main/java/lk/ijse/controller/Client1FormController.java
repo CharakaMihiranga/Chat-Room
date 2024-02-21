@@ -128,7 +128,6 @@ public class Client1FormController {
                         String msg = dataInputStream.readUTF();
                         Platform.runLater(() -> receiveMessage(msg));
                     } catch (EOFException e) {
-                        // Handle the end of the stream (socket closure) gracefully
                         System.out.println("Server has closed the connection.");
                         break;
                     }
